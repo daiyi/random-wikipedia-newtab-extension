@@ -1,0 +1,27 @@
+{
+
+  "manifest_version": 2,
+  "name": "Wikipedia.random New Tab",
+  "homepage_url": "http://daiyi.co",
+  "version": "1.0",
+
+  "description": "Redirects to a random wikipedia page when you open a new tab",
+
+  "icons": {
+    "48": "icons/random-new-tab-48.gif"
+  },
+
+  "permissions": [
+    "tabs"
+  ],
+
+  "background": {
+    "scripts": ["randomNewTab.js"]
+  },
+
+  "options_ui": {
+    "page": "settings.html",
+    "open_in_tab": true
+  }
+
+}
