@@ -1,6 +1,8 @@
 # random wikipedia newtab
 Firefox extension that redirects to a random wikipedia page when you open a new tab, because when you're opening a new tab you're looking for a distraction and that distraction might as well be a weird fact
 
+![babbys first firefox extension](./icons/screenshot.jpg)
+
 ### this is the way I'm developing extensions although you can certainly do it without npm
 
 1. install npm
