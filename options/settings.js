@@ -1,20 +1,16 @@
 function saveOptions(e) {
-  let option = document.forms.settings.elements.source.value;
-  console.log('saving!');
-  console.log('source:', option);
+  let id = e.target.id;
   browser.storage.local.set({
-    'random_wikipedia_newtab_extension': {
-      source: JSON.parse(option) || 'wikipedia'
+    random_wiki_ext_data: {
+      sourceID: id
     }
   });
 }
 
 function restoreOptions() {
-  console.log('restoring!');
-  browser.storage.local.get('random_wikipedia_newtab_extension', (savedOptions) => {
-    let option = savedOptions.random_wikipedia_newtab_extension.source;
-    console.log(option);
-    document.forms.settings.value = option || 'wikipedia';
+  browser.storage.local.get('random_wiki_ext_data', (data) => {
+    let id = data.random_wiki_ext_data && data.random_wiki_ext_data.sourceID || 'wikipedia';
+    document.getElementById(id).checked = true;
   });
 }
 
