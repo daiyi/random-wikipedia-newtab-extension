@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <title>random new tab | extension settings</title>
+
+    <link rel='shortcut icon' type='image/png' href='./icon.png'>
+    <link href='./settings.css' rel='stylesheet'>
+</head>
+
+<body>
+
+  <div class='page'>
+    <div class='content'>
+      <div class='container'>
+        <h1><a href='/'>random new tab ✨</a></h1>
+        <form name='settings' class='settings'>
+          <fieldset>
+            <legend><h2>select source</h2></legend>
+            <li>
+              <input type='radio' name='source' value='wikipedia' id='wikipedia' checked='true' autofocus='true'>
+              <label for='wikipedia'>random wikipedia page</label>
+            </li>
+            <li>
+              <input type='radio' name='source' value='{"name": "List_of_cognitive_biases"}' id='wiki-cognitive-bias'>
+              <label for='wiki-cognitive-bias'>random cognative bias wikipedia page</label>
+            </li>
+            <li>
+              <input type='radio' name='source' value='Wikipedia:Unusual_articles' id='unusual-wikipedia'>
+              <label for='unusual-wikipedia'>random unusual wikipedia page</label>
+            </li>
+            <li>
+              <input type='radio' name='source' id='custom-wikipedia-page' disabled="">
+                <label for="custom-wikipedia-page">random from custom wikipedia page</label>
+              </input>
+            </li>
+            <li>
+              <input type='radio' name='source' id='custom-wikipedia-page' disabled="">
+                <label for="custom-wikipedia-page">random from custom rss feed</label>
+              </input>
+            </li>
+            <!-- <li>
+              <fieldset disabled="">
+                <input type='radio' name='source' id='custom-rss-feed'>
+                  <label for='custom-rss-feed-input'>random from a wikipedia list page</label>
+                  <input type='text' id='custom-rss-feed-input' placeholder='random from rss feed link'></input>
+                </input>
+              </fieldset>
+            </li> -->
+          </fieldset>
+        </form>
+        <footer>
+          <p>
+            made by <a href='http://daiyi.co'>daiyi</a> |
+            <a href='https://github.com/daiyitastic/random-new-tab'>source</a>
+          </p>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+	<script src='./settings.js'></script>
+
+</body>
+
+</html>

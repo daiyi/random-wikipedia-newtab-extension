@@ -3,26 +3,25 @@ html {
 }
 
 body {
-  font-family: Courier New, Courier New, Courier6, monospace;
+  font-family: Courier New, Courier, Courier6, monospace;
+  font-size: 16px;
   margin: 0;
   height: 100%;
 }
 
-h1, h2 {
+h1 {
   margin-top: 0;
   margin-bottom: 10px;
 }
 
 h2 {
   font-size: 20px;
+  margin: 0;
 }
 
 .page {
   height: 100%;
   display: flex;
-  -webkit-box-flex-direction: column;
-  -moz-box-flex-direction: column;
-  -webkit-flex-direction: column;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -33,7 +32,6 @@ h2 {
 
 .container {
   max-width: 600px;
-  max-height: 200px;
   margin-bottom: 20px;
 }
 
@@ -65,11 +63,38 @@ h1 a:link {
   border-bottom: none;
 }
 
-ul {
-  margin-top: 0;
-  list-style: none;
-  padding-left: 10px;
+fieldset {
+  border-style: solid;
 }
+li {
+  list-style: none;
+}
+
+input {
+  font-family: Courier New, Courier, Courier6, monospace;
+}
+
 input:disabled + label {
+  color: #888;
   text-decoration: line-through;
+}
+input[type="text"] {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #888;
+  color: #000;
+  font-size: 16px;
+}
+input[type="text"]:focus {
+  border-bottom: 2px solid #000;
+}
+
+fieldset fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.radio-fieldset:focus {
+  background-color: #444;
 }
