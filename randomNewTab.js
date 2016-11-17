@@ -1,12 +1,19 @@
 const WIKIPEDIA_URL_BASE = 'https://en.wikipedia.org/wiki/';
 
+function saveOptions(data) {
+}
+
 function checkTab(tabs) {
   // window.alert();
   for (tab of tabs) {
     if (tab.url === 'about:newtab') {
       browser.storage.local.get('sourceID', data => {
         let id = data.sourceID;
-        if (id !== 'wikipedia') {
+        if (id == undefined) {
+          browser.storage.local.set({sourceID: 'wikipedia'});
+          browser.tabs.update({url: 'https://en.wikipedia.org/wiki/Special:Random'});
+        }
+        else if (id !== 'wikipedia') {
           browser.storage.local.get(id, dataset => {
             let pages = dataset[id];
             let randomIndex = (Math.floor(Math.random() * pages.length));
