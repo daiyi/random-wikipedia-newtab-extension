@@ -1,18 +1,27 @@
+let optionsSavedEvent = new Event('optionsSaved',
+	{
+		detail: {
+			time: new Date(),
+		},
+		bubbles: true,
+		cancelable: true
+	});
+
 function saveOptions(e) {
   let id = e.target.id;
-  browser.storage.local.set({
-    random_wiki_ext_data: {
-      sourceID: id
-    }
-  });
+
+  browser.storage.local.set({sourceID: id});
+
+  e.target.dispatchEvent(optionsSavedEvent);
 }
 
-function restoreOptions() {
-  browser.storage.local.get('random_wiki_ext_data', (data) => {
-    let id = data.random_wiki_ext_data && data.random_wiki_ext_data.sourceID || 'wikipedia';
+function loadOptions() {
+  getSelectedSourceID(id => {
     document.getElementById(id).checked = true;
   });
 }
 
-document.addEventListener('DOMContentLoaded', restoreOptions);
+document.addEventListener('DOMContentLoaded', loadOptions);
 document.querySelector('.settings').addEventListener('change', saveOptions);
+
+browser.storage.local.get('sourceID', data => (console.log(data)));

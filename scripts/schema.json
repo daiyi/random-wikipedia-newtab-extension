@@ -1,0 +1,12 @@
+{
+  "random_wiki_ext_data" : {
+    "sourceID": {
+      "type": "string"
+    },
+    "dataSets": {
+      "[id]": {
+        "type": "Set"
+      }
+    }
+  }
+}
