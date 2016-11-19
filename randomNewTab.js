@@ -41,7 +41,6 @@ function getNewWikiPages(pageName) {
 
 function checkTab(tabs) {
   // window.alert();
-  // console.log(chrome.extension.getURL('options/settings.html'));
   for (let tab of tabs) {
     if (tab.url === 'about:newtab') {
       browser.storage.local.get('sourceID', data => {
