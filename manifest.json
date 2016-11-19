@@ -5,7 +5,7 @@
   "homepage_url": "https://github.com/daiyitastic/random-wikipedia-newtab-extension",
   "version": "1.0",
   "icons": {
-    "48": "icons/random-new-tab-48.gif"
+    "48": "icons/random-new-tab-48.png"
   },
   "permissions": [
     "<all_urls>",
