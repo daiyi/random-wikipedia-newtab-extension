@@ -17,6 +17,7 @@ function saveOptions(e) {
 
 function loadOptions() {
   getSelectedSourceID(id => {
+    console.log(id);
     document.getElementById(id).checked = true;
   });
 }

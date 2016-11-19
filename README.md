@@ -36,3 +36,4 @@ other notes
 - tests
 - icons
 - filter wiki links by ns
+- load more than 500 links
