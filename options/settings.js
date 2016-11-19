@@ -17,10 +17,24 @@ function saveOptions(e) {
 
 function loadOptions() {
   getSelectedSourceID(id => {
-    console.log(id);
     document.getElementById(id).checked = true;
+  });
+}
+
+function processNewSettings(e) {
+  let {id, value} = e.target;
+
+  // check if page set is already in storage
+  browser.storage.local.get(id, (data) => {
+    if (!data[id]) {
+      getNewWikiPages(value);
+    }
   });
 }
 
 document.addEventListener('DOMContentLoaded', loadOptions);
 document.querySelector('.settings').addEventListener('change', saveOptions);
+
+// todo use storage.onChanged
+// https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/storage/onChanged
+document.addEventListener('optionsSaved', processNewSettings);

@@ -1,30 +1,66 @@
 const WIKIPEDIA_URL_BASE = 'https://en.wikipedia.org/wiki/';
+const WIKIPEDIA_API_BASE = 'https://en.wikipedia.org/w/';
+const DEFAULT_SOURCE_ID = "unusual_wikipedia";
+const DEFAULT_SOURCE_VALUE = "Wikipedia:Unusual_articles";
 
-function saveOptions(data) {
+function saveDataset(data) {
+  getSelectedSourceID(id => {
+    browser.storage.local.set({[id]: data});
+  });
+}
+
+function getSelectedSourceID(callback) {
+  browser.storage.local.get('sourceID', (data) => {
+    callback(data.sourceID);
+  });
+}
+
+function processNewPages(response) {
+  let pagesObj = JSON.parse(response).query.pages;
+  let links = pagesObj[Object.keys(pagesObj)[0]].links;
+  let pages = [];
+
+  for (let linkObj of links) {
+    (linkObj.ns === 0) && pages.push(linkObj.title);
+  }
+
+  saveDataset(pages);
+}
+
+function getNewWikiPages(pageName) {
+  let req = new XMLHttpRequest();
+  let url = `${WIKIPEDIA_API_BASE}api.php?action=query&titles=${pageName}&format=json&prop=links&pllimit=500`
+  req.open("GET", url, true);
+  req.addEventListener("readystatechange", function() {
+    if(req.readyState === XMLHttpRequest.DONE && req.status === 200) {
+      processNewPages(req.response);
+    }
+  });
+  req.send(null);
 }
 
 function checkTab(tabs) {
   // window.alert();
-
+  // console.log(chrome.extension.getURL('options/settings.html'));
   for (let tab of tabs) {
     if (tab.url === 'about:newtab') {
       browser.storage.local.get('sourceID', data => {
-        let id = data.sourceID;
-        if (id == undefined) {
-          browser.storage.local.set({sourceID: 'wikipedia'});
-          browser.tabs.update({url: 'https://en.wikipedia.org/wiki/Special:Random'});
+        let {sourceID} = data;
+        if (sourceID === undefined) {
+          sourceID = DEFAULT_SOURCE_ID
+          browser.storage.local.set({sourceID});
+          getNewWikiPages(DEFAULT_SOURCE_VALUE);
         }
-        else if (id !== 'wikipedia') {
-          browser.storage.local.get(id, dataset => {
-            let pages = dataset[id];
+        if (sourceID !== 'wikipedia') {
+          browser.storage.local.get(sourceID, dataset => {
+            let pages = dataset[sourceID];
             let randomIndex = (Math.floor(Math.random() * pages.length));
-            let url = WIKIPEDIA_URL_BASE + pages[randomIndex];
 
-            browser.tabs.update({url});
+            browser.tabs.update({url: `${WIKIPEDIA_URL_BASE}${pages[randomIndex]}`});
           });
         }
         else {
-          browser.tabs.update({url: 'https://en.wikipedia.org/wiki/Special:Random'});
+          browser.tabs.update({url: `${WIKIPEDIA_URL_BASE}${DEFAULT_SOURCE_VALUE}`});
         }
       });
     }
@@ -41,3 +77,6 @@ function newTabEvent(tab) {
 }
 
 browser.tabs.onCreated.addListener(newTabEvent);
+browser.runtime.onInstalled.addListener(function() {
+  browser.tabs.create({'url': browser.extension.getURL('options/settings.html')});
+});
