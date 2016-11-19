@@ -23,5 +23,3 @@ function loadOptions() {
 
 document.addEventListener('DOMContentLoaded', loadOptions);
 document.querySelector('.settings').addEventListener('change', saveOptions);
-
-browser.storage.local.get('sourceID', data => (console.log(data)));

@@ -1,34 +1,5 @@
 const PAGE_KEY = 'title';
 
-let response = `{
-    "parse": {
-        "title": "List of cognitive biases",
-        "pageid": 510791,
-        "links": [{
-            "ns": 14,
-            "title": "Category:Articles lacking reliable references from November 2013"
-        }, {
-            "ns": 14,
-            "title": "Category:Articles lacking reliable references from October 2013"
-        }, {
-            "ns": 10,
-            "title": "Template:Biases"
-        }, {
-            "ns": 0,
-            "title": "Anthropomorphism"
-        }, {
-            "ns": 0,
-            "title": "Apophenia"
-        }, {
-            "ns": 4,
-            "title": "Wikipedia:Citation needed"
-        }, {
-            "ns": 100,
-            "title": "Portal:Thinking"
-        }]
-    }
-}`;
-
 function getSelectedSourceID(callback) {
   browser.storage.local.get('sourceID', (data) => {
     callback(data.sourceID);
@@ -37,7 +8,6 @@ function getSelectedSourceID(callback) {
 
 function saveDataset(data) {
   getSelectedSourceID(id => {
-    console.log('saving', id);
     browser.storage.local.set({[id]: data});
   });
 }
@@ -53,8 +23,9 @@ function getDataset() {
   });
 }
 
-function getNewPages() {
-  let links = JSON.parse(response).parse.links;
+function processNewPages(response) {
+  let pagesObj = JSON.parse(response).query.pages;
+  let links = pagesObj[Object.keys(pagesObj)[0]].links;
   let pages = [];
 
   for (let linkObj of links) {
@@ -64,13 +35,26 @@ function getNewPages() {
   saveDataset(pages);
 }
 
+function getNewWikiPages(pageName) {
+  let req = new XMLHttpRequest();
+  let url = `https://en.wikipedia.org/w/api.php?action=query&titles=${pageName}&format=json&prop=links&pllimit=500`
+  req.open("GET", url, true);
+  req.addEventListener("readystatechange", function() {
+    if(req.readyState === XMLHttpRequest.DONE && req.status === 200) {
+      processNewPages(req.response);
+    }
+  });
+  req.send(null);
+}
+
 
 // todo use storage.onChanged
 // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/storage/onChanged
 function processNewSettings(e) {
-  let id = e.target.id;
+  let {id, value} = e.target;
+
   if (!getDataset(id)) {
-    getNewPages();
+    getNewWikiPages(value);
   }
 }
 

@@ -3,13 +3,14 @@
 
 <head>
     <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <!-- <meta http-equiv='X-UA-Compatible' content='IE=edge'> -->
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
     <title>random new tab | extension settings</title>
 
-    <link rel='shortcut icon' type='image/png' href='./icon.png'>
-    <link href='./settings.css' rel='stylesheet'>
+    <link rel='shortcut icon' type='image/png' href='./icon.png'></link>
+    <link href='./settings.css' rel='stylesheet'></link>
 </head>
 
 <body>
@@ -22,16 +23,16 @@
           <fieldset>
             <legend><h2>select source</h2></legend>
             <li>
-              <input type='radio' name='source' value='*' id='wikipedia' checked='true' autofocus='true'>
-              <label for='wikipedia'>random wikipedia page</label>
-            </li>
-            <li>
-              <input type='radio' name='source' value='List_of_cognitive_biases' id='wiki-cognitive-bias'>
-              <label for='wiki-cognitive-bias'>random cognative bias wikipedia page</label>
-            </li>
-            <li>
-              <input type='radio' name='source' value='Wikipedia:Unusual_articles' id='unusual-wikipedia'>
+              <input type='radio' name='source' value='Wikipedia:Unusual_articles' id='unusual_wikipedia'>
               <label for='unusual-wikipedia'>random unusual wikipedia page</label>
+            </li>
+            <li>
+              <input type='radio' name='source' value='List_of_philosophical_concepts' id='philosophy_wikipedia'>
+              <label for='unusual-wikipedia'>random philosophical concept wikipedia page</label>
+            </li>
+            <li>
+              <input type='radio' name='source' value='List_of_cognitive_biases' id='wiki_cognitive_bias'>
+              <label for='wiki-cognitive-bias'>random cognative bias wikipedia page</label>
             </li>
             <li>
               <input type='radio' name='source' id='custom-wikipedia-page' disabled="">
@@ -42,6 +43,10 @@
               <input type='radio' name='source' id='custom-wikipedia-page' disabled="">
                 <label for="custom-wikipedia-page">random from custom rss feed</label>
               </input>
+            </li>
+            <li>
+              <input type='radio' name='source' value='*' id='wikipedia' checked='true' autofocus='true'>
+              <label for='wikipedia'>random wikipedia page</label>
             </li>
             <!-- <li>
               <fieldset disabled="">

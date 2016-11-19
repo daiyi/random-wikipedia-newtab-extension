@@ -5,7 +5,8 @@ function saveOptions(data) {
 
 function checkTab(tabs) {
   // window.alert();
-  for (tab of tabs) {
+
+  for (let tab of tabs) {
     if (tab.url === 'about:newtab') {
       browser.storage.local.get('sourceID', data => {
         let id = data.sourceID;
